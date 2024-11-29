@@ -23,10 +23,11 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center px-4 md:h-16 md:px-6">
         {/* Logo - Always visible */}
-        <AnimatedGradientText>
-          <h1 className="text-2xl font-bold">AIStudytools</h1>
-        </AnimatedGradientText>
-
+        <Link to="/">
+          <AnimatedGradientText>
+            <h1 className="text-2xl font-bold">AIStudytools</h1>
+          </AnimatedGradientText>
+        </Link>
         {/* Navigation - Hidden on mobile */}
         <div className="hidden md:flex">
           <NavigationMenu>
