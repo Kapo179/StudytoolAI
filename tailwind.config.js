@@ -70,7 +70,9 @@ export default {
   			rainbow: 'rainbow var(--speed, 2s) infinite linear',
   			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
   			shine: 'shine var(--duration) infinite linear',
-  			gradient: 'gradient 8s linear infinite'
+  			gradient: 'gradient 8s linear infinite',
+  			marquee: 'marquee var(--duration) infinite linear',
+  			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite'
   		},
   		keyframes: {
   			rainbow: {
@@ -97,19 +99,35 @@ export default {
   					'background-position': '0% 0%'
   				}
   			},
-			  gradient: {
-				'0%': {
-				  'background-position': '0% 50%',
-				},
-				'50%': {
-				  'background-position': '100% 50%',
-				},
-				'100%': {
-				  'background-position': '0% 50%',
-				},
-			  },
-			},
-		  },
+  			gradient: {
+  				'0%': {
+  					'background-position': '0% 50%'
+  				},
+  				'50%': {
+  					'background-position': '100% 50%'
+  				},
+  				'100%': {
+  					'background-position': '0% 50%'
+  				}
+  			},
+  			marquee: {
+  				from: {
+  					transform: 'translateX(0)'
+  				},
+  				to: {
+  					transform: 'translateX(calc(-100% - var(--gap)))'
+  				}
+  			},
+  			'marquee-vertical': {
+  				from: {
+  					transform: 'translateY(0)'
+  				},
+  				to: {
+  					transform: 'translateY(calc(-100% - var(--gap)))'
+  				}
+  			}
+  		}
+  	}
   },
   plugins: [require('tailwindcss-animate')],
 };

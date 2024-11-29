@@ -13,6 +13,7 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { BorderBeam } from '@/components/magicui/border-beam';
+import { MarqueeDemo } from '@/components/magicui/marquee-demo';
 
 export function ProductList() {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -40,13 +41,14 @@ export function ProductList() {
 
   return (
     <div className="space-y-6">
+      <MarqueeDemo />
       <div className="animate-slide-down space-y-4 md:flex md:items-center md:justify-between md:space-y-0">
         <div className="space-y-1">
           <h2 className="text-xl font-medium tracking-tight md:text-2xl">
-            Featured Study Tools
+            Study 100X Smarter with AI Tools
           </h2>
           <p className="text-sm text-muted-foreground">
-            Discover the best tools to enhance your learning journey
+            Explore our collection of AI-powered study tools to help you learn faster and smarter
           </p>
         </div>
         <Select defaultValue="trending">
