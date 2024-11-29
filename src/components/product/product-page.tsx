@@ -3,16 +3,8 @@ import { StarRating } from './star-rating';
 import { VoteButton } from './vote-button';
 import { Separator } from '@/components/ui/separator';
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs';
-import {
   Globe,
-  Calendar,
   Users,
-  Zap,
   ExternalLink,
 } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';

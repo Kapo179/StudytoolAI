@@ -27,7 +27,8 @@ export function ProductMedia() {
 
   const processFile = async (file: File) => {
     const id = file.name + Date.now();
-    
+    let interval: NodeJS.Timeout | undefined;
+
     try {
       setUploadingFiles(prev => ({
         ...prev,
@@ -35,7 +36,7 @@ export function ProductMedia() {
       }));
 
       // Simulate progress
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         setUploadingFiles(prev => ({
           ...prev,
           [id]: { ...prev[id], progress: Math.min(prev[id].progress + 10, 90) }
@@ -65,7 +66,7 @@ export function ProductMedia() {
 
       return compressedFile;
     } catch (error) {
-      clearInterval(interval);
+      if (interval) clearInterval(interval);
       setUploadingFiles(prev => {
         const { [id]: _, ...rest } = prev;
         return rest;

@@ -15,7 +15,9 @@ import { Monitor, Smartphone } from 'lucide-react';
 import { addSubmission } from '@/lib/firebase';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
-import { FORM_SECTIONS, FormSection } from '@/lib/form-sections';
+// Remove unused import
+// import { FORM_SECTIONS, FormSection } from '@/lib/form-sections';
+import { FormSection } from '@/lib/form-sections';
 
 export function ProductForm() {
   const [activeSection, setActiveSection] = useState<FormSection>('basics');
@@ -117,7 +119,7 @@ export function ProductForm() {
 
               <div className="mt-6">
                 <TabsContent value="basics" className="space-y-6">
-                  <ProductBasicInfo />
+                  <ProductBasicInfo control={methods.control} />
                 </TabsContent>
 
                 <TabsContent value="media" className="space-y-6">
@@ -125,7 +127,7 @@ export function ProductForm() {
                 </TabsContent>
 
                 <TabsContent value="details" className="space-y-6">
-                  <ProductDetails />
+                  <ProductDetails control={methods.control} />
                 </TabsContent>
 
                 <TabsContent value="preview" className="space-y-6">
