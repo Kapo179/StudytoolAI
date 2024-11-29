@@ -48,7 +48,7 @@ export function ProductPage({ product }: ProductPageProps) {
               <div className="flex items-start gap-4">
                 <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl bg-[#1D2126] text-3xl">
                   {product.emoji}
-                </div>
+                </div> 
                 <div className="space-y-1">
                   <h1 className="font-cal text-2xl md:text-3xl">{product.name}</h1>
                   <p className="text-base text-muted-foreground md:text-lg">
@@ -56,7 +56,7 @@ export function ProductPage({ product }: ProductPageProps) {
                   </p>
                   <div className="flex flex-wrap gap-2 pt-2">
                     {product.topics.map((topic) => (
-                      <Badge key={topic} variant="secondary">
+                      <Badge key={topic} variant="default">
                         {topic}
                       </Badge>
                     ))}
