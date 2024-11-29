@@ -5,6 +5,7 @@ export interface SectionConfig {
   title: string;
   fields: string[];
   fieldLabels: Record<string, string>;
+  validate?: (values: any) => boolean; // Add this line
 }
 
 export const SECTION_CONFIG: Record<FormSection, SectionConfig> = {
