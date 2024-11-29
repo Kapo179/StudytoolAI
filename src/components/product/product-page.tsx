@@ -80,16 +80,6 @@ export function ProductPage({ product }: ProductPageProps) {
           <div className="border-t">
             <ScrollArea className="w-full">
               <div className="flex divide-x px-6 py-4">
-                <div className="px-6 first:pl-0 last:pr-0">
-                  <StarRating rating={product.rating} />
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {product.stats.reviews} reviews
-                  </p>
-                </div>
-                <div className="px-6">
-                  <p className="font-medium">{product.stats.users.toLocaleString()}</p>
-                  <p className="text-sm text-muted-foreground">Active Users</p>
-                </div>
                 <div className="px-6">
                   <p className="font-medium capitalize">{product.pricing.type}</p>
                   <p className="text-sm text-muted-foreground">Pricing</p>
