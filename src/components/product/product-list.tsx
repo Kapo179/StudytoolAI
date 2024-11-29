@@ -12,6 +12,7 @@ import {
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
+import { BorderBeam } from '@/components/magicui/border-beam';
 
 export function ProductList() {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -113,9 +114,10 @@ export function ProductList() {
           )}
         >
           {firstHalf.map((product, index) => (
-            <div key={product.id}>
+            <div key={product.id} className={index === 0 ? 'relative' : ''}>
+              {index === 0 && <BorderBeam />}
               <ProductCard product={product} />
-              {index < firstHalf.length - 1 && (
+              {index !== 0 && index < firstHalf.length - 1 && (
                 <Separator className="my-4" />
               )}
             </div>

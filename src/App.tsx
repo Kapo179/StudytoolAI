@@ -28,31 +28,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/submit" element={<SubmitPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
-          <Route 
-            path="/product/:id" 
-            element={
-              <ProductPage 
-                product={{
-                  id: '1',
-                  name: 'StudyGPT',
-                  tagline: 'Your personal AI tutor',
-                  description: 'AI tutor helps you learn instantly.',
-                  votes: 234,
-                  rating: 5,
-                  topics: ['AI Tutors', 'Personalized'],
-                  emoji: '🤖',
-                  pricing: {
-                    type: 'freemium',
-                  },
-                  websiteUrl: 'https://example.com',
-                  stats: {
-                    users: 10000,
-                    reviews: 42,
-                  },
-                }} 
-              />
-            } 
-          />
+          <Route path="/product/:id" element={<ProductPage />} />
         </Routes>
       </div>
     </TooltipProvider>

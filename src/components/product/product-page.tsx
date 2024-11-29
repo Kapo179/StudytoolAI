@@ -1,15 +1,17 @@
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { SAMPLE_PRODUCTS } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
 import { StarRating } from './star-rating';
 import { VoteButton } from './vote-button';
 import { Separator } from '@/components/ui/separator';
-import {
-  Globe,
-  Users,
-  ExternalLink,
-} from 'lucide-react';
+import { Globe, Users, ExternalLink } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
+import { compressImage } from '@/lib/media';
+import { ShineBorder } from '@/components/magicui/shine-border';
+import { RainbowButton } from '@/components/magicui/rainbow-button';
 
 interface ProductPageProps {
   product: {
@@ -17,10 +19,10 @@ interface ProductPageProps {
     name: string;
     tagline: string;
     description: string;
+    fullDescription: string;
     votes: number;
     rating: number;
     topics: string[];
-    emoji: string;
     pricing: {
       type: 'free' | 'freemium' | 'paid';
       plans?: {
@@ -34,62 +36,82 @@ interface ProductPageProps {
       users: number;
       reviews: number;
     };
+    images: string[];
+    logo: string;
   };
 }
 
-export function ProductPage({ product }: ProductPageProps) {
+export function ProductPage() {
+  const { id } = useParams<{ id: string }>();
+  const [product, setProduct] = useState<ProductPageProps['product'] | null>(null);
+  const [compressedLogo, setCompressedLogo] = useState<string | null>(null);
+
+  useEffect(() => {
+    const productData = SAMPLE_PRODUCTS.find((p) => p.id === id);
+    if (productData) {
+      setProduct(productData);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (product) {
+      async function compressLogo() {
+        try {
+          const response = await fetch(product.logo);
+          const blob = await response.blob();
+          const file = new File([blob], 'logo.png', { type: blob.type });
+          const compressedFile = await compressImage(file);
+          setCompressedLogo(URL.createObjectURL(compressedFile));
+        } catch (error) {
+          console.error('Failed to compress logo image', error);
+        }
+      }
+
+      compressLogo();
+    }
+  }, [product]);
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="container px-4 py-6 md:px-6 md:py-8">
       <div className="mx-auto max-w-5xl">
         {/* Header Card */}
-        <div className="rounded-lg border bg-card shadow-sm">
-          <div className="p-6">
-            <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-              <div className="flex items-start gap-4">
-                <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl bg-[#1D2126] text-3xl">
-                  {product.emoji}
-                </div> 
-                <div className="space-y-1">
-                  <h1 className="font-cal text-2xl md:text-3xl">{product.name}</h1>
-                  <p className="text-base text-muted-foreground md:text-lg">
-                    {product.tagline}
-                  </p>
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {product.topics.map((topic) => (
-                      <Badge key={topic} variant="default">
-                        {topic}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
+        <div className="p-6">
+          <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+            <div className="flex items-start gap-4">
+              <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-lg transform scale-105">
+                {compressedLogo ? (
+                  <img src={compressedLogo} alt={`${product.name} logo`} className="h-full w-full object-cover rounded-2xl" />
+                ) : (
+                  <img src={product.logo} alt={`${product.name} logo`} className="h-full w-full object-cover rounded-2xl" />
+                )}
               </div>
-              <div className="flex items-center gap-3">
-                <VoteButton initialVotes={product.votes} />
-                <Button
-                  className="bg-mint text-white hover:bg-mint/90"
-                  onClick={() => window.open(product.websiteUrl, '_blank')}
-                >
-                  <Globe className="mr-2 h-4 w-4" />
-                  Visit Website
-                </Button>
+              <div className="space-y-1">
+                <h1 className="font-cal text-2xl md:text-3xl">{product.name}</h1>
+                <p className="hidden sm:block text-base text-muted-foreground md:text-lg">
+                  {product.tagline}
+                </p>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {product.topics.map((topic) => (
+                    <Badge key={topic} variant="default">
+                      {topic}
+                    </Badge>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-
-          {/* Quick Stats */}
-          <div className="border-t">
-            <ScrollArea className="w-full">
-              <div className="flex divide-x px-6 py-4">
-                <div className="px-6">
-                  <p className="font-medium capitalize">{product.pricing.type}</p>
-                  <p className="text-sm text-muted-foreground">Pricing</p>
-                </div>
-                <div className="px-6">
-                  <p className="font-medium">2024</p>
-                  <p className="text-sm text-muted-foreground">Launch Date</p>
-                </div>
-              </div>
-            </ScrollArea>
+            <div className="flex items-center gap-3">
+              <VoteButton initialVotes={product.votes} />
+              <RainbowButton
+                onClick={() => window.open(product.websiteUrl, '_blank')}
+              >
+                <Globe className="mr-2 h-4 w-4" />
+                Visit Website
+              </RainbowButton>
+            </div>
           </div>
         </div>
 
@@ -98,21 +120,23 @@ export function ProductPage({ product }: ProductPageProps) {
           <div className="lg:col-span-2">
             <div className="space-y-6">
               {/* About */}
-              <div className="rounded-lg border bg-card p-6">
-                <h2 className="font-cal text-xl">About {product.name}</h2>
-                <p className="mt-4 text-muted-foreground">{product.description}</p>
-              </div>
+              <ShineBorder borderRadius={16} borderWidth={2} duration={14} color={["#00DEA9", "#00de7e"]}>
+                <div className="rounded-lg border bg-card p-6">
+                  <h2 className="font-cal text-xl">About {product.name}</h2>
+                  <p className="mt-4 text-muted-foreground">{product.fullDescription}</p>
+                </div>
+              </ShineBorder>
 
               {/* Screenshots */}
               <div className="rounded-lg border bg-card p-6">
                 <h2 className="font-cal text-xl">Screenshots</h2>
                 <div className="mt-4 grid gap-4">
-                  {[1, 2, 3].map((index) => (
+                  {product.images.map((image, index) => (
                     <div key={index} className="overflow-hidden rounded-lg border bg-muted">
                       <AspectRatio ratio={16/9}>
                         <img
-                          src={`https://images.unsplash.com/photo-${index}?w=1200&h=675&fit=crop`}
-                          alt={`${product.name} screenshot ${index}`}
+                          src={image}
+                          alt={`${product.name} screenshot ${index + 1}`}
                           className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                         />
                       </AspectRatio>
@@ -155,31 +179,6 @@ export function ProductPage({ product }: ProductPageProps) {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Pricing Card */}
-            <div className="rounded-lg border bg-card p-6">
-              <h3 className="font-cal text-xl">Pricing</h3>
-              <div className="mt-4 space-y-4">
-                {product.pricing.plans?.map((plan, index) => (
-                  <div
-                    key={index}
-                    className="rounded-lg border p-4 transition-colors hover:bg-muted/50"
-                  >
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-medium">{plan.name}</h4>
-                      <p className="font-medium">${plan.price}/mo</p>
-                    </div>
-                    <ul className="mt-2 space-y-2">
-                      {plan.features.map((feature, fIndex) => (
-                        <li key={fIndex} className="text-sm text-muted-foreground">
-                          • {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             {/* Quick Links */}
             <div className="rounded-lg border bg-card p-6">
               <h3 className="font-cal text-xl">Quick Links</h3>
@@ -199,7 +198,6 @@ export function ProductPage({ product }: ProductPageProps) {
                 >
                   <Users className="mr-2 h-4 w-4" />
                   Community
-                  <ExternalLink className="ml-auto h-4 w-4" />
                 </Button>
               </div>
             </div>

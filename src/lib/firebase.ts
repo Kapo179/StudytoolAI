@@ -3,13 +3,15 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, Timestamp } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBjV1rCKmGD6fEZeX1sJlNH2ViDV7l4_GE",
+  authDomain: "aistudytools-xyz.firebaseapp.com",
+  projectId: "aistudytools-xyz",
+  storageBucket: "aistudytools-xyz.firebasestorage.app",
+  messagingSenderId: "902710318519",
+  appId: "1:902710318519:web:c3893e866e5835ae78c432",
+  measurementId: "G-1P31MYKHZQ"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

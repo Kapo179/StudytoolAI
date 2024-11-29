@@ -19,8 +19,9 @@ interface ProductCardProps {
     votes: number;
     rating: number;
     topics: string[];
-    emoji: string;
     websiteUrl?: string;
+    images: string[];
+    logo: string;
   };
 }
 
@@ -51,14 +52,14 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="flex flex-1 flex-col space-y-2.5">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#1D2126] text-2xl transition-transform group-hover:scale-110">
-                  {product.emoji}
+                <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-lg transform scale-105">
+                  <img src={product.logo} alt={`${product.name} logo`} className="h-full w-full object-cover rounded-2xl" />
                 </div>
                 <div>
                   <h3 className="font-cal text-lg font-medium tracking-tight transition-colors group-hover:text-mint">
                     {product.name}
                   </h3>
-                  <p className="text-sm text-muted-foreground">{product.tagline}</p>
+                  <p className="hidden sm:block text-sm text-muted-foreground">{product.tagline}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
