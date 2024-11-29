@@ -97,13 +97,19 @@ export default {
   					'background-position': '0% 0%'
   				}
   			},
-  			gradient: {
-  				to: {
-  					backgroundPosition: 'var(--bg-size) 0'
-  				}
-  			}
-  		}
-  	}
+			  gradient: {
+				'0%': {
+				  'background-position': '0% 50%',
+				},
+				'50%': {
+				  'background-position': '100% 50%',
+				},
+				'100%': {
+				  'background-position': '0% 50%',
+				},
+			  },
+			},
+		  },
   },
   plugins: [require('tailwindcss-animate')],
 };
