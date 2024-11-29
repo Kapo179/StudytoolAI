@@ -58,7 +58,76 @@ export const SAMPLE_PRODUCTS = [
     emoji: '📚', // Add a default emoji
   },
   {
-    id: '1',
+    id: '3',
+    name: 'RemNote',
+    tagline: 'Make flashcards in your notes. Cut study time in half.',
+    description: 'RemNote is a study tool that integrates note-taking and flashcards for optimal retention.',
+    votes: 234,
+    rating: 5,
+    topics: ['Flashcard', 'Note-taking'],
+    pricing: {
+      type: 'freemium',
+    },
+    websiteUrl: 'https://www.remnote.com/',
+    stats: {
+      users: 10000,
+      reviews: 42,
+    },
+    images: [
+      '/src/assets/images/remnote/image1.jpeg',
+      '/src/assets/images/remnote/image2.jpeg',
+    ],
+    logo: '/src/assets/images/remnote/logo.jpeg',
+    emoji: '📚', // Add a default emoji
+  },
+  {
+    id: '4',
+    name: 'RemNote',
+    tagline: 'Make flashcards in your notes. Cut study time in half.',
+    description: 'RemNote is a study tool that integrates note-taking and flashcards for optimal retention.',
+    votes: 234,
+    rating: 5,
+    topics: ['Flashcard', 'Note-taking'],
+    pricing: {
+      type: 'freemium',
+    },
+    websiteUrl: 'https://www.remnote.com/',
+    stats: {
+      users: 10000,
+      reviews: 42,
+    },
+    images: [
+      '/src/assets/images/remnote/image1.jpeg',
+      '/src/assets/images/remnote/image2.jpeg',
+    ],
+    logo: '/src/assets/images/remnote/logo.jpeg',
+    emoji: '📚', // Add a default emoji
+  },
+  {
+    id: '5',
+    name: 'RemNote',
+    tagline: 'Make flashcards in your notes. Cut study time in half.',
+    description: 'RemNote is a study tool that integrates note-taking and flashcards for optimal retention.',
+    votes: 234,
+    rating: 5,
+    topics: ['Flashcard', 'Note-taking'],
+    pricing: {
+      type: 'freemium',
+    },
+    websiteUrl: 'https://www.remnote.com/',
+    stats: {
+      users: 10000,
+      reviews: 42,
+    },
+    images: [
+      '/src/assets/images/remnote/image1.jpeg',
+      '/src/assets/images/remnote/image2.jpeg',
+    ],
+    logo: '/src/assets/images/remnote/logo.jpeg',
+    emoji: '📚', // Add a default emoji
+  },
+  {
+    id: '6',
     name: 'RemNote',
     tagline: 'Make flashcards in your notes. Cut study time in half.',
     description: 'RemNote is a study tool that integrates note-taking and flashcards for optimal retention.',
