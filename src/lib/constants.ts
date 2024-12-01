@@ -16,6 +16,7 @@ export const SAMPLE_PRODUCTS = [
     tagline: 'NotebookLM is your powerful virtual research assistant rooted in information you can trust.',
     description: 'NotebookLM now lets you listen to a conversation about your sources!',
     fullDescription:'NotebookLM revolutionizes how you engage with information, turning your uploads—PDFs, websites, videos, audio files, and more—into personalized insights powered by Gemini 1.5s multimodal understanding. With instant analysis and smart connections between topics, it serves as your AI expert, providing clear citations for every response so you can trust its answers. Whether youre exploring complex ideas or seeking quick summaries, NotebookLM keeps the source at your fingertips for confidence in every interaction. Plus, its new Audio Overview feature transforms your materials into immersive Deep Dive discussions, perfect for learning on the go.',
+    saves: 100,
     votes: 234,
     rating: 5,
     topics: ['Flashcard', 'Note-taking'],
@@ -32,6 +33,7 @@ export const SAMPLE_PRODUCTS = [
     ],
     logo: '/assets/images/notebook/logo.jpg',
     emoji: '📚', // Add a default emoji
+    savedBy: ['user1', 'user2'],
   },
   {
     id: '2',

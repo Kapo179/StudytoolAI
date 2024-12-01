@@ -1,6 +1,7 @@
+// src/lib/firebase.ts
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, Timestamp } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, Timestamp, doc, getDoc, setDoc, updateDoc, increment } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBjV1rCKmGD6fEZeX1sJlNH2ViDV7l4_GE",
@@ -11,7 +12,6 @@ const firebaseConfig = {
   appId: "1:902710318519:web:c3893e866e5835ae78c432",
   measurementId: "G-1P31MYKHZQ"
 };
-
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -56,3 +56,6 @@ export async function getSubmissionsByStatus(status: string) {
     ...doc.data()
   }));
 }
+
+// Export Firestore functions
+export { doc, getDoc, setDoc, updateDoc, increment };

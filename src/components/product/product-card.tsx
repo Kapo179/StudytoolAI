@@ -5,7 +5,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { VoteButton } from './vote-button';
+import { SaveButton } from './save-button';
 import { StarRating } from './star-rating';
 import { Link } from 'react-router-dom';
 import { Globe } from 'lucide-react';
@@ -16,7 +16,6 @@ interface ProductCardProps {
     name: string;
     description: string;
     tagline: string;
-    votes: number;
     rating: number;
     topics: string[];
     websiteUrl?: string;
@@ -26,7 +25,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const handleVote = (e: React.MouseEvent) => {
+  const handleSave = (e: React.MouseEvent) => {
     e.preventDefault(); // Prevent card click
   };
 
@@ -44,17 +43,10 @@ export function ProductCard({ product }: ProductCardProps) {
         className="block"
       >
         <div className="group card-hover flex flex-col gap-4 rounded-lg border bg-card p-4 transition-all hover:bg-accent/5 sm:flex-row">
-          <VoteButton
-            initialVotes={product.votes}
-            className="hidden sm:flex"
-            onClick={handleVote}
-          />
           <div className="flex flex-1 flex-col space-y-2.5">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-lg transform scale-105">
-                <img src={product.logo} alt={`${product.name} logo`} className="product-logo" />
-                </div>
+                <img src={product.logo} alt={`${product.name} logo`} className="h-12 w-12 object-contain" />
                 <div>
                   <h3 className="font-cal text-lg font-medium tracking-tight transition-colors group-hover:text-mint">
                     {product.name}
@@ -79,11 +71,7 @@ export function ProductCard({ product }: ProductCardProps) {
                     <TooltipContent>Visit website</TooltipContent>
                   </Tooltip>
                 )}
-                <VoteButton
-                  initialVotes={product.votes}
-                  className="flex h-10 w-16 sm:hidden"
-                  onClick={handleVote}
-                />
+                <SaveButton productId={product.id} className="hidden sm:inline-flex" />
               </div>
             </div>
             <p className="text-sm text-muted-foreground transition-opacity group-hover:opacity-90">
@@ -113,6 +101,7 @@ export function ProductCard({ product }: ProductCardProps) {
                     Visit
                   </Button>
                 )}
+                <SaveButton productId={product.id} className="sm:hidden" />
               </div>
             </div>
           </div>
