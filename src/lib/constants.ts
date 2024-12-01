@@ -28,10 +28,10 @@ export const SAMPLE_PRODUCTS = [
       reviews: 42,
     },
     images: [
-      '../public/assets/images/remnote/image1.jpeg',
-      '../public/assets/images/remnote/image2.jpeg',
+      '/assets/images/remnote/image1.jpg',
+      '/assets/images/remnote/image2.jpg',
     ],
-    logo: '../public/assets/images/remnote/logo.jpeg',
+    logo: '/assets/images/remnote/logo.jpg',
     emoji: '📚', // Add a default emoji
   },
   {
@@ -51,10 +51,10 @@ export const SAMPLE_PRODUCTS = [
       reviews: 42,
     },
     images: [
-      '../public/assets/images/remnote/image1.jpeg',
-      '../public/assets/images/remnote/image2.jpeg',
+      '/assets/images/remnote/image1.jpg',
+      '/assets/images/remnote/image2.jpg',
     ],
-    logo: '../public/assets/images/remnote/logo.jpeg',
+    logo: '/assets/images/remnote/logo.jpg',
     emoji: '📚', // Add a default emoji
   },
   {
@@ -74,10 +74,10 @@ export const SAMPLE_PRODUCTS = [
       reviews: 42,
     },
     images: [
-      '../public/assets/images/remnote/image1.jpeg',
-      '../public/assets/images/remnote/image2.jpeg',
+      '/assets/images/remnote/image1.jpg',
+      '/assets/images/remnote/image2.jpg',
     ],
-    logo: '../public/assets/images/remnote/logo.jpeg',
+    logo: '/assets/images/remnote/logo.jpg',
     emoji: '📚', // Add a default emoji
   },
   {
@@ -97,10 +97,10 @@ export const SAMPLE_PRODUCTS = [
       reviews: 42,
     },
     images: [
-      '../public/assets/images/remnote/image1.jpeg',
-      '../public/assets/images/remnote/image2.jpeg',
+      '/assets/images/remnote/image1.jpg',
+      '/assets/images/remnote/image2.jpg',
     ],
-    logo: '../public/assets/images/remnote/logo.jpeg',
+    logo: '/assets/images/remnote/logo.jpg',
     emoji: '📚', // Add a default emoji
   },
   {
@@ -120,10 +120,10 @@ export const SAMPLE_PRODUCTS = [
       reviews: 42,
     },
     images: [
-      '../public/assets/images/remnote/image1.jpeg',
-      '../public/assets/images/remnote/image2.jpeg',
+      '/assets/images/remnote/image1.jpg',
+      '/assets/images/remnote/image2.jpg',
     ],
-    logo: '../public/assets/images/remnote/logo.jpeg',
+    logo: '/assets/images/remnote/logo.jpg',
     emoji: '📚', // Add a default emoji
   },
   {
@@ -143,10 +143,10 @@ export const SAMPLE_PRODUCTS = [
       reviews: 42,
     },
     images: [
-      '../public/assets/images/remnote/image1.jpeg',
-      '../public/assets/images/remnote/image2.jpeg',
+      '/assets/images/remnote/image1.jpg',
+      '/assets/images/remnote/image2.jpg',
     ],
-    logo: '../public/assets/images/remnote/logo.jpeg',
+    logo: '/assets/images/remnote/logo.jpg',
     emoji: '📚', // Add a default emoji
   },
 ];
