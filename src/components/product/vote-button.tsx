@@ -8,7 +8,8 @@ import {
 } from '@/components/ui/tooltip';
 import { ArrowBigUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useAuth } from '@/hooks/use-auth'; // Import useAuth hook
+import { useAuth } from '@/hooks/use-auth';
+import { LoginPromptDialog } from '../product/LoginPromptDialog';
 
 interface VoteButtonProps {
   initialVotes: number;
@@ -23,8 +24,7 @@ export function VoteButton({ initialVotes, className, onClick }: VoteButtonProps
 
   const handleVote = (e: React.MouseEvent) => {
     if (!user) {
-      // Show a message or redirect to login
-      alert('You must be logged in to vote.');
+      // Show the login prompt dialog
       return;
     }
 
@@ -64,6 +64,7 @@ export function VoteButton({ initialVotes, className, onClick }: VoteButtonProps
           {hasVoted ? 'Remove vote' : 'Upvote this product'}
         </TooltipContent>
       </Tooltip>
+      {!user && <LoginPromptDialog />}
     </TooltipProvider>
   );
 }
