@@ -14,7 +14,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "declaration": true
   },
   "include": ["src"]
 }
