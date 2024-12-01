@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/tooltip';
 import { ArrowBigUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/hooks/use-auth'; // Import useAuth hook
 
 interface VoteButtonProps {
   initialVotes: number;
@@ -18,8 +19,15 @@ interface VoteButtonProps {
 export function VoteButton({ initialVotes, className, onClick }: VoteButtonProps) {
   const [votes, setVotes] = useState(initialVotes);
   const [hasVoted, setHasVoted] = useState(false);
+  const { user } = useAuth(); // Get the current user
 
   const handleVote = (e: React.MouseEvent) => {
+    if (!user) {
+      // Show a message or redirect to login
+      alert('You must be logged in to vote.');
+      return;
+    }
+
     if (onClick) {
       onClick(e);
     } else {
