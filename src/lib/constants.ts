@@ -12,7 +12,7 @@ export const CATEGORIES = [
 export const SAMPLE_PRODUCTS = [
   {
     id: '1',
-    name: 'notebook',
+    name: "Google's Notebooklm",
     tagline: 'NotebookLM is your powerful virtual research assistant rooted in information you can trust.',
     description: 'NotebookLM now lets you listen to a conversation about your sources!',
     fullDescription:'NotebookLM revolutionizes how you engage with information, turning your uploads—PDFs, websites, videos, audio files, and more—into personalized insights powered by Gemini 1.5s multimodal understanding. With instant analysis and smart connections between topics, it serves as your AI expert, providing clear citations for every response so you can trust its answers. Whether youre exploring complex ideas or seeking quick summaries, NotebookLM keeps the source at your fingertips for confidence in every interaction. Plus, its new Audio Overview feature transforms your materials into immersive Deep Dive discussions, perfect for learning on the go.',
@@ -35,7 +35,7 @@ export const SAMPLE_PRODUCTS = [
   },
   {
     id: '2',
-    name: 'Web Highlights',
+    name: 'Remnote',
     tagline: 'Highlight text on any web page or PDF and take notes.',
     description: 'RemNote is a study tool that integrates note-taking and flashcards for optimal retention.',
     fullDescription:'RemNote is a comprehensive study tool that integrates note-taking and flashcards for optimal retention. It helps you quickly create flashcards within your notes and schedules reviews for you. With mind map style notes and PDF annotations, understanding complex topics is easier. Join 730,000+ students who have reduced study time and exam stress. RemNote offers offline access, image occlusion, and customizable tables. Transform your study routine today.',

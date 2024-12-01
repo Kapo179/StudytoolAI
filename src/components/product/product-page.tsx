@@ -67,7 +67,7 @@ export function ProductPage() {
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
             <div className="flex items-start gap-4">
               <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-lg transform scale-105">
-                <img src={product.logo} alt={`${product.name} logo`} className="h-full w-full object-cover rounded-2xl" />
+                <img src={product.logo} alt={`${product.name} logo`} className="product-logo" />
               </div>
               <div className="space-y-1">
                 <h1 className="font-cal text-2xl md:text-3xl">{product.name}</h1>

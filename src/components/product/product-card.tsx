@@ -53,7 +53,7 @@ export function ProductCard({ product }: ProductCardProps) {
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-lg transform scale-105">
-                  <img src={product.logo} alt={`${product.name} logo`} className="h-full w-full object-cover rounded-2xl" />
+                <img src={product.logo} alt={`${product.name} logo`} className="product-logo" />
                 </div>
                 <div>
                   <h3 className="font-cal text-lg font-medium tracking-tight transition-colors group-hover:text-mint">
