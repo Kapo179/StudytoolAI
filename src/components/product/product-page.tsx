@@ -8,7 +8,6 @@ import { Separator } from '@/components/ui/separator';
 import { Globe, Users, ExternalLink } from 'lucide-react';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Badge } from '@/components/ui/badge';
-import { compressImage } from '@/lib/media';
 import { ShineBorder } from '@/components/magicui/shine-border';
 import { RainbowButton } from '@/components/magicui/rainbow-button';
 
@@ -43,7 +42,6 @@ interface ProductPageProps {
 export function ProductPage() {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<ProductPageProps['product'] | null>(null);
-  const [compressedLogo, setCompressedLogo] = useState<string | null>(null);
 
   useEffect(() => {
     const productData = SAMPLE_PRODUCTS.find((p) => p.id === id);
@@ -57,24 +55,6 @@ export function ProductPage() {
     }
   }, [id]);
 
-  useEffect(() => {
-    if (product) {
-      async function compressLogo() {
-        try {
-          const response = await fetch(product.logo);
-          const blob = await response.blob();
-          const file = new File([blob], 'logo.png', { type: blob.type });
-          const compressedFile = await compressImage(file);
-          setCompressedLogo(URL.createObjectURL(compressedFile));
-        } catch (error) {
-          console.error('Failed to compress logo image', error);
-        }
-      }
-
-      compressLogo();
-    }
-  }, [product]);
-
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -87,19 +67,15 @@ export function ProductPage() {
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
             <div className="flex items-start gap-4">
               <div className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-lg transform scale-105">
-                {compressedLogo ? (
-                  <img src={compressedLogo} alt={`${product?.name} logo`} className="h-full w-full object-cover rounded-2xl" />
-                ) : (
-                  <img src={product?.logo} alt={`${product?.name} logo`} className="h-full w-full object-cover rounded-2xl" />
-                )}
+                <img src={product.logo} alt={`${product.name} logo`} className="h-full w-full object-cover rounded-2xl" />
               </div>
               <div className="space-y-1">
-                <h1 className="font-cal text-2xl md:text-3xl">{product?.name}</h1>
+                <h1 className="font-cal text-2xl md:text-3xl">{product.name}</h1>
                 <p className="hidden sm:block text-base text-muted-foreground md:text-lg">
-                  {product?.tagline}
+                  {product.tagline}
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
-                  {product?.topics.map((topic) => (
+                  {product.topics.map((topic) => (
                     <Badge key={topic} variant="default">
                       {topic}
                     </Badge>
@@ -108,9 +84,9 @@ export function ProductPage() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <VoteButton initialVotes={product?.votes} />
+              <VoteButton initialVotes={product.votes} />
               <RainbowButton
-                onClick={() => window.open(product?.websiteUrl, '_blank')}
+                onClick={() => window.open(product.websiteUrl, '_blank')}
               >
                 <Globe className="mr-2 h-4 w-4" />
                 Visit Website
@@ -126,8 +102,8 @@ export function ProductPage() {
               {/* About */}
               <ShineBorder borderRadius={16} borderWidth={2} duration={14} color={["#00DEA9", "#00de7e"]}>
                 <div className="rounded-lg border bg-card p-6">
-                  <h2 className="font-cal text-xl">About {product?.name}</h2>
-                  <p className="mt-4 text-muted-foreground">{product?.fullDescription}</p>
+                  <h2 className="font-cal text-xl">About {product.name}</h2>
+                  <p className="mt-4 text-muted-foreground">{product.fullDescription}</p>
                 </div>
               </ShineBorder>
 
@@ -135,12 +111,12 @@ export function ProductPage() {
               <div className="rounded-lg border bg-card p-6">
                 <h2 className="font-cal text-xl">Screenshots</h2>
                 <div className="mt-4 grid gap-4">
-                  {product?.images.map((image, index) => (
+                  {product.images.map((image, index) => (
                     <div key={index} className="overflow-hidden rounded-lg border bg-muted">
                       <AspectRatio ratio={16/9}>
                         <img
                           src={image}
-                          alt={`${product?.name} screenshot ${index + 1}`}
+                          alt={`${product.name} screenshot ${index + 1}`}
                           className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                         />
                       </AspectRatio>
@@ -190,7 +166,7 @@ export function ProductPage() {
                 <Button
                   variant="outline"
                   className="w-full justify-start"
-                  onClick={() => window.open(product?.websiteUrl, '_blank')}
+                  onClick={() => window.open(product.websiteUrl, '_blank')}
                 >
                   <Globe className="mr-2 h-4 w-4" />
                   Visit Website
