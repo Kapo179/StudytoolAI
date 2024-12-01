@@ -46,7 +46,9 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="flex flex-1 flex-col space-y-2.5">
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <img src={product.logo} alt={`${product.name} logo`} className="h-12 w-12 object-contain" />
+                <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-lg transform scale-105">
+                  <img src={product.logo} alt={`${product.name} logo`} className="h-full w-full object-cover rounded-2xl" />
+                </div>
                 <div>
                   <h3 className="font-cal text-lg font-medium tracking-tight transition-colors group-hover:text-mint">
                     {product.name}
