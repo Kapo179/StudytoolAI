@@ -12,7 +12,6 @@ import { useAutoSave } from '@/hooks/use-autosave';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { addSubmission, uploadFile } from '@/lib/firebase';
 import { useToast } from '@/hooks/use-toast';
-import { Button } from '@/components/ui/button';
 import { FormSection } from '@/lib/form-sections';
 
 export function ProductForm() {
@@ -89,10 +88,9 @@ export function ProductForm() {
           Share your educational tool with our community of learners
         </p>
       </div>
-
       <FormProvider {...methods}>
         <Form {...methods}>
-          <form className="mt-8 space-y-8">
+          <form className="mt-8 space-y-8" onSubmit={methods.handleSubmit(handleSubmit)}>
             <Tabs value={activeSection} onValueChange={(v) => setActiveSection(v as FormSection)}>
               <div className="flex items-center justify-between">
                 <TabsList>

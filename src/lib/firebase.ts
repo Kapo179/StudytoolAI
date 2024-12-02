@@ -30,7 +30,7 @@ export const uploadFile = async (file: File): Promise<string> => {
 };
 
 // Submissions Collection Reference
-const submissionsRef = collection(db, 'submissions');
+const submissionsRef = collection(db, 'product-submissions');
 
 // Add a new submission
 export async function addSubmission(data: any) {
