@@ -24,7 +24,7 @@ export const productSchema = z.object({
   contactName: z.string().min(1, 'Your name is required'),
   contactEmail: z.string().email('Please enter a valid email address'),
   logo: fileSchema.nullable().optional(),
-  images: z.array(fileSchema).min(3, 'At least 3 screenshots are required').max(8, 'Maximum 8 screenshots allowed'),
+  images: z.array(fileSchema).min(1, 'At least 1 screenshots are required').max(8, 'Maximum 8 screenshots allowed'),
   websiteUrl: z.string().url('Please enter a valid URL'),
   pricing: z.object({
     type: z.enum(['free', 'freemium', 'paid']),

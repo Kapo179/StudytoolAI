@@ -236,7 +236,7 @@ export function ProductMedia() {
               </div>
             </FormControl>
             <FormDescription>
-              Upload 3-8 high-quality screenshots (16:9 recommended)
+              Upload 1-8 high-quality screenshots (16:9 recommended)
             </FormDescription>
             <FormMessage />
           </FormItem>
