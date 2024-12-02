@@ -9,21 +9,15 @@ import { ProductDetails } from './sections/details';
 import { ProductPreview } from './sections/preview';
 import { FormNav } from './form-nav';
 import { useAutoSave } from '@/hooks/use-autosave';
-import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Monitor, Smartphone } from 'lucide-react';
-import { addSubmission } from '@/lib/firebase';
-import { useNavigate } from 'react-router-dom';
+import { addSubmission, uploadFile } from '@/lib/firebase';
 import { useToast } from '@/hooks/use-toast';
-// Remove unused import
-// import { FORM_SECTIONS, FormSection } from '@/lib/form-sections';
+import { Button } from '@/components/ui/button';
 import { FormSection } from '@/lib/form-sections';
 
 export function ProductForm() {
   const [activeSection, setActiveSection] = useState<FormSection>('basics');
-  const [previewMode, setPreviewMode] = useState<'desktop' | 'mobile'>('desktop');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
   const { toast } = useToast();
 
   const methods = useForm({
@@ -49,6 +43,22 @@ export function ProductForm() {
   const handleSubmit = async (data: any) => {
     try {
       setIsSubmitting(true);
+
+      // Upload logo file to Firebase Storage and get the download URL
+      if (data.logo instanceof File) {
+        data.logo = await uploadFile(data.logo);
+      }
+
+      // Upload image files to Firebase Storage and get the download URLs
+      if (Array.isArray(data.images)) {
+        data.images = await Promise.all(data.images.map(async (file: File) => {
+          if (file instanceof File) {
+            return await uploadFile(file);
+          }
+          return file;
+        }));
+      }
+
       await addSubmission({
         ...data,
         status: 'pending',
@@ -57,16 +67,15 @@ export function ProductForm() {
 
       toast({
         title: 'Submission successful',
-        description: 'Your study tool has been submitted for review.',
+        description: 'Your study tool has been submitted for review. You will receive an email confirmation shortly.',
       });
-
-      navigate('/');
-    } catch (error: any) {
+    } catch (error) {
       toast({
         title: 'Submission failed',
-        description: error.message,
+        description: (error as Error).message,
         variant: 'destructive',
       });
+      console.error('Submission failed:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -92,29 +101,6 @@ export function ProductForm() {
                   <TabsTrigger value="details">Details</TabsTrigger>
                   <TabsTrigger value="preview">Preview</TabsTrigger>
                 </TabsList>
-
-                {activeSection === 'preview' && (
-                  <div className="flex items-center gap-2 rounded-lg border p-1">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setPreviewMode('desktop')}
-                      className={previewMode === 'desktop' ? 'bg-muted' : ''}
-                    >
-                      <Monitor className="mr-2 h-4 w-4" />
-                      Desktop
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setPreviewMode('mobile')}
-                      className={previewMode === 'mobile' ? 'bg-muted' : ''}
-                    >
-                      <Smartphone className="mr-2 h-4 w-4" />
-                      Mobile
-                    </Button>
-                  </div>
-                )}
               </div>
 
               <div className="mt-6">
@@ -131,7 +117,7 @@ export function ProductForm() {
                 </TabsContent>
 
                 <TabsContent value="preview" className="space-y-6">
-                  <ProductPreview data={methods.getValues()} mode={previewMode} />
+                  <ProductPreview data={methods.getValues()} mode="desktop" />
                 </TabsContent>
               </div>
             </Tabs>

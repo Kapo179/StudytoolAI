@@ -13,6 +13,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { FORM_SECTIONS, SECTION_CONFIG, FormSection } from '@/lib/form-sections';
+import { useToast } from '@/hooks/use-toast';
 
 interface FormNavProps {
   activeSection: FormSection;
@@ -28,6 +29,7 @@ export function FormNav({
   onSubmit,
 }: FormNavProps) {
   const { formState, trigger, getValues } = useFormContext();
+  const { toast } = useToast();
   const currentIndex = FORM_SECTIONS.indexOf(activeSection);
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === FORM_SECTIONS.length - 1;
@@ -62,6 +64,23 @@ export function FormNav({
 
     if (isValid) {
       setActiveSection(FORM_SECTIONS[currentIndex + 1]);
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      await onSubmit();
+      toast({
+        title: 'Submission successful',
+        description: 'Your study tool has been submitted for review. You will receive an email confirmation shortly.',
+      });
+    } catch (error) {
+      toast({
+        title: 'Submission failed',
+        description: (error as Error).message,
+        variant: 'destructive',
+      });
+      console.error('Submission failed:', error);
     }
   };
 
@@ -118,7 +137,7 @@ export function FormNav({
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction
-                onClick={onSubmit}
+                onClick={handleSubmit}
                 className="bg-mint text-white hover:bg-mint/90"
               >
                 {formState.isValid ? 'Submit' : 'Submit Anyway'}

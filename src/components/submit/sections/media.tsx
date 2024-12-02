@@ -21,7 +21,7 @@ interface UploadingFile {
 }
 
 export function ProductMedia() {
-  const { control, setValue } = useFormContext();
+  const { control, setValue, watch } = useFormContext();
   const { toast } = useToast();
   const [uploadingFiles, setUploadingFiles] = useState<Record<string, UploadingFile>>({});
 
@@ -83,7 +83,7 @@ export function ProductMedia() {
         setValue('logo', processed, { shouldValidate: true });
       } else {
         const processed = await Promise.all(acceptedFiles.map(processFile));
-        setValue('images', processed, { shouldValidate: true });
+        setValue('images', [...(watch('images') || []), ...processed], { shouldValidate: true });
       }
     } catch (error: any) {
       toast({
@@ -92,7 +92,7 @@ export function ProductMedia() {
         variant: 'destructive',
       });
     }
-  }, [setValue, toast]);
+  }, [setValue, toast, watch]);
 
   const logoDropzone = useDropzone({
     onDrop: (files) => onDrop(files, 'logo'),

@@ -1,4 +1,8 @@
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { useFormContext } from 'react-hook-form';
+import { addSubmission } from '@/lib/firebase';
+import { useToast } from '@/hooks/use-toast';
 
 interface ProductPreviewProps {
   data: any;
@@ -6,6 +10,31 @@ interface ProductPreviewProps {
 }
 
 export function ProductPreview({ data, mode }: ProductPreviewProps) {
+  const { handleSubmit } = useFormContext();
+  const { toast } = useToast();
+
+  const onSubmit = async (formData: any) => {
+    try {
+      await addSubmission({
+        ...formData,
+        status: 'pending',
+        submittedAt: new Date().toISOString(),
+      });
+
+      toast({
+        title: 'Submission successful',
+        description: 'Your study tool has been submitted for review. You will receive an email confirmation shortly.',
+      });
+    } catch (error) {
+      toast({
+        title: 'Submission failed',
+        description: (error as Error).message,
+        variant: 'destructive',
+      });
+      console.error('Submission failed:', error);
+    }
+  };
+
   return (
     <div
       className={cn(
@@ -63,64 +92,6 @@ export function ProductPreview({ data, mode }: ProductPreviewProps) {
             </div>
           </div>
         )}
-
-        {/* Pricing */}
-        <div className="space-y-2">
-          <h4 className="font-medium">Pricing</h4>
-          <div className="rounded-lg border p-3 space-y-3">
-            <p className="text-sm capitalize font-medium">
-              {data.pricing?.type || 'Free'}
-            </p>
-            {data.pricing?.plans?.map((plan: any, index: number) => (
-              <div key={index} className="space-y-2 pt-2 first:pt-0">
-                {index > 0 && <div className="border-t -mt-2" />}
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium">{plan.name}</span>
-                  <span className="text-sm font-medium">
-                    ${plan.price}/mo
-                  </span>
-                </div>
-                <ul className="space-y-1">
-                  {plan.features.map((feature: string, fIndex: number) => (
-                    <li 
-                      key={fIndex} 
-                      className="text-sm text-muted-foreground flex items-start"
-                    >
-                      <span className="mr-2">•</span>
-                      <span className="break-words flex-1">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Contact */}
-        <div className="space-y-2">
-          <h4 className="font-medium">Contact</h4>
-          <div className="rounded-lg border p-3 space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Website</span>
-              <a 
-                href={data.websiteUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-mint hover:underline break-all"
-              >
-                {data.websiteUrl || 'Not provided'}
-              </a>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Contact</span>
-              <span className="break-all">
-                {data.contactEmail || 'Not provided'}
-              </span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

@@ -13,7 +13,6 @@ export function useAuth() {
       setUser(user);
       setLoading(false);
     });
-
     return unsubscribe;
   }, []);
 
