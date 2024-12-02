@@ -1,6 +1,6 @@
 // src/lib/firebase.ts
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, Timestamp, doc, getDoc, setDoc, updateDoc, increment } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
@@ -24,9 +24,22 @@ export const storage = getStorage(app);
 export const googleProvider = new GoogleAuthProvider();
 
 export const uploadFile = async (file: File): Promise<string> => {
-  const storageRef = ref(storage, `uploads/${file.name}`);
-  await uploadBytes(storageRef, file);
-  return await getDownloadURL(storageRef);
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const storageRef = ref(storage, `uploads/${file.name}`);
+          await uploadBytes(storageRef, file);
+          const downloadURL = await getDownloadURL(storageRef);
+          resolve(downloadURL);
+        } catch (error) {
+          reject(error);
+        }
+      } else {
+        reject(new Error('User is not authenticated'));
+      }
+    });
+  });
 };
 
 // Submissions Collection Reference
