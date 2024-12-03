@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from 'react-router-dom';
 import { productSchema } from '@/lib/validations/product';
 import { Form } from '@/components/ui/form';
 import { ProductBasicInfo } from './sections/basic-info';
@@ -19,6 +20,7 @@ export function ProductForm() {
   const [activeSection, setActiveSection] = useState<FormSection>('basics');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate(); //
 
   const methods = useForm({
     resolver: zodResolver(productSchema),
@@ -75,6 +77,7 @@ export function ProductForm() {
         title: 'Submission successful',
         description: 'Your study tool has been submitted for review. You will receive an email confirmation shortly.',
       });
+      navigate('/SubmissionLandingPage');
     } catch (error) {
       toast({
         title: 'Submission failed',

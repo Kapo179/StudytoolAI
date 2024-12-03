@@ -8,6 +8,7 @@ import { AdminDashboard } from '@/components/admin/admin-dashboard';
 import { AdminLink } from '@/components/admin/admin-link';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { SavedProducts } from '@/pages/Savedproducts';
+import { SubmissionLandingPage } from '@/pages/SubmissionLandingPage'; 
 
 function HomePage() {
   return (

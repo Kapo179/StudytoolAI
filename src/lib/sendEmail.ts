@@ -1,8 +1,7 @@
-import AWS from 'aws-sdk';
+import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 
-AWS.config.update({ region: 'us-east-1' }); // Update to your region
+const client = new SESClient({ region: 'us-east-1' });  // Update to your region
 
-const ses = new AWS.SES({ apiVersion: '2010-12-01' });
 
 export async function sendEmail(to: string, subject: string, body: string) {
   const params = {
@@ -19,7 +18,8 @@ export async function sendEmail(to: string, subject: string, body: string) {
   };
 
   try {
-    await ses.sendEmail(params).promise();
+    const command = new SendEmailCommand(params);
+    await client.send(command);
     console.log('Email sent successfully');
   } catch (error) {
     console.error('Error sending email:', error);
