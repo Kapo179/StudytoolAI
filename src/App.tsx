@@ -32,6 +32,7 @@ export default function App() {
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/saved" element={<SavedProducts />} />
+          <Route path="/submission-success" element={<SubmissionLandingPage />} />
         </Routes>
       </div>
     </TooltipProvider>

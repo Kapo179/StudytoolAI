@@ -77,7 +77,7 @@ export function ProductForm() {
         title: 'Submission successful',
         description: 'Your study tool has been submitted for review. You will receive an email confirmation shortly.',
       });
-      navigate('/SubmissionLandingPage');
+      navigate('/submission-success');
     } catch (error) {
       toast({
         title: 'Submission failed',
