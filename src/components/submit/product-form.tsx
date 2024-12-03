@@ -13,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { addSubmission, uploadFile } from '@/lib/firebase';
 import { useToast } from '@/hooks/use-toast';
 import { FormSection } from '@/lib/form-sections';
+import { sendEmail } from '@/lib/sendEmail';
 
 export function ProductForm() {
   const [activeSection, setActiveSection] = useState<FormSection>('basics');
@@ -63,6 +64,12 @@ export function ProductForm() {
         status: 'pending',
         submittedAt: new Date().toISOString(),
       });
+      
+      await sendEmail(
+        data.contactEmail,
+        'Submission Confirmation',
+        'Your study tool has been submitted for review. You will receive an email confirmation shortly.'
+      );
 
       toast({
         title: 'Submission successful',
