@@ -1,64 +1,23 @@
+// src/components/admin/admin-dashboard.tsx
 import { useState, useEffect } from 'react';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Filter, Search, CheckCircle2, XCircle, AlertTriangle } from 'lucide-react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
+import { Search, Filter } from 'lucide-react';
 import { getSubmissions } from '@/lib/firebase';
-
-function StatusBadge({ status }: { status: string }) {
-  const variants = {
-    pending: {
-      color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-      icon: <AlertTriangle className="mr-1 h-3 w-3" />,
-    },
-    approved: {
-      color: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-      icon: <CheckCircle2 className="mr-1 h-3 w-3" />,
-    },
-    rejected: {
-      color: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-      icon: <XCircle className="mr-1 h-3 w-3" />,
-    },
-  };
-
-  const { color, icon } = variants[status as keyof typeof variants] || variants.pending;
-
-  return (
-    <Badge variant="outline" className={`flex items-center gap-1 ${color}`}>
-      {icon}
-      {status.charAt(0).toUpperCase() + status.slice(1)}
-    </Badge>
-  );
-}
+import { ReviewDialog } from '../admin/dashboard/review-dialog';
+import { StatusBadge } from '../admin/dashboard/status-badge';
 
 export function AdminDashboard() {
   const [submissions, setSubmissions] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedSubmission, setSelectedSubmission] = useState<any>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // Fetch submissions on component mount
   useEffect(() => {
@@ -85,6 +44,16 @@ export function AdminDashboard() {
       statusFilter === 'all' || submission.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  const handleReviewClick = (submission: any) => {
+    setSelectedSubmission(submission);
+    setIsDialogOpen(true);
+  };
+
+  const handleReviewComplete = () => {
+    setIsDialogOpen(false);
+    // Refresh submissions or update the state as needed
+  };
 
   return (
     <div className="container animate-fade-in py-8">
@@ -156,9 +125,7 @@ export function AdminDashboard() {
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => {
-                            // Handle review action
-                          }}
+                          onClick={() => handleReviewClick(submission)}
                         >
                           Review
                         </Button>
@@ -171,6 +138,15 @@ export function AdminDashboard() {
           )}
         </CardContent>
       </Card>
+
+      {selectedSubmission && (
+        <ReviewDialog
+          submission={selectedSubmission}
+          open={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
+          onReviewComplete={handleReviewComplete}
+        />
+      )}
     </div>
   );
 }
