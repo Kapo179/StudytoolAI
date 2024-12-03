@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CATEGORIES, SAMPLE_PRODUCTS } from '@/lib/constants';
 import { ProductCard } from './product-card';
 import { HeroCarousel } from '@/components/layout/hero-carousel';
@@ -11,13 +11,24 @@ import {
 } from '@/components/ui/select';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
-import { cn } from '@/lib/utils';
+import { cn, shuffleArray } from '@/lib/utils';
 import { BorderBeam } from '@/components/magicui/border-beam';
 import { MarqueeDemo } from '@/components/magicui/marquee-demo';
+import { useAuth } from '@/hooks/use-auth';
 
 export function ProductList() {
+  const { user } = useAuth();
   const [activeCategory, setActiveCategory] = useState('all');
   const [isChanging, setIsChanging] = useState(false);
+  const [shuffledProducts, setShuffledProducts] = useState(SAMPLE_PRODUCTS);
+
+
+  useEffect(() => {
+    if (user) {
+      // Shuffle the product list for each user
+      setShuffledProducts(shuffleArray([...SAMPLE_PRODUCTS]));
+    }
+  }, [user]);
 
   const handleCategoryChange = (category: string) => {
     setIsChanging(true);
@@ -26,13 +37,14 @@ export function ProductList() {
   };
 
   const filteredProducts = activeCategory === 'all'
-    ? SAMPLE_PRODUCTS
-    : SAMPLE_PRODUCTS.filter((p) => {
+    ? shuffledProducts
+    : shuffledProducts.filter((p) => {
         const categoryName = CATEGORIES.find(c => c.id === activeCategory)?.name;
         return categoryName && p.topics.some(topic => 
           topic.toLowerCase().includes(categoryName.split(' ')[0].toLowerCase())
         );
       });
+
 
   // Split products into two parts for carousel placement
   const midPoint = Math.ceil(filteredProducts.length / 2);

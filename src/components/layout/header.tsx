@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { Search, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { HEADER_LINKS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { AuthButtons } from '@/components/auth/auth-buttons';
@@ -16,7 +15,6 @@ import { ModeToggle } from '@/components/theme/mode-toggle';
 import { AnimatedGradientText } from '@/components/magicui/animated-gradient-text.tsx';
 
 export function Header() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -48,30 +46,6 @@ export function Header() {
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <div
-            className={cn(
-              'w-full transition-all md:w-auto md:flex-none',
-              isSearchOpen ? 'flex' : 'hidden md:flex'
-            )}
-          >
-            <div className="relative">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search study tools..."
-                className="pl-8 md:w-[300px] lg:w-[400px]"
-              />
-            </div>
-          </div>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsSearchOpen(!isSearchOpen)}
-          >
-            <Search className="h-5 w-5" />
-          </Button>
-
           <div className="hidden items-center gap-2 md:flex">
             <ModeToggle />
             <AuthButtons />
