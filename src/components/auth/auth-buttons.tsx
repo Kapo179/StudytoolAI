@@ -7,7 +7,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { LogOut } from 'lucide-react';
+import { LogOut, Bookmark } from 'lucide-react'; // Import Bookmark icon
+import { Link } from 'react-router-dom'; // Import Link component
 
 export function AuthButtons() {
   const { user, signInWithGoogle, signOutUser } = useAuth();
@@ -21,9 +22,15 @@ export function AuthButtons() {
               <AvatarImage src={user.photoURL || undefined} alt={user.displayName || 'User'} />
               <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
             </Avatar>
-          </Button>
+            </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuItem asChild>
+            <Link to="/saved">
+              <Bookmark className="mr-2 h-4 w-4" />
+              Saved Products
+            </Link>
+          </DropdownMenuItem>
           <DropdownMenuItem
             className="text-destructive focus:text-destructive"
             onClick={signOutUser}

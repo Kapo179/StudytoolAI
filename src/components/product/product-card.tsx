@@ -1,3 +1,4 @@
+// src/components/product/product-card.tsx
 import { Button } from '@/components/ui/button';
 import {
   Tooltip,
@@ -27,6 +28,7 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   const handleSave = (e: React.MouseEvent) => {
     e.preventDefault(); // Prevent card click
+    e.stopPropagation(); // Stop event propagation
   };
 
   const handleVisit = (e: React.MouseEvent) => {
@@ -73,7 +75,7 @@ export function ProductCard({ product }: ProductCardProps) {
                     <TooltipContent>Visit website</TooltipContent>
                   </Tooltip>
                 )}
-                <SaveButton productId={product.id} className="hidden sm:inline-flex" />
+                <SaveButton productId={product.id} className="sm:hidden" onClick={handleSave} />
               </div>
             </div>
             <p className="text-sm text-muted-foreground transition-opacity group-hover:opacity-90">
@@ -103,7 +105,7 @@ export function ProductCard({ product }: ProductCardProps) {
                     Visit
                   </Button>
                 )}
-                <SaveButton productId={product.id} className="sm:hidden" />
+                <SaveButton productId={product.id} className="hidden sm:inline-flex" onClick={handleSave} />
               </div>
             </div>
           </div>

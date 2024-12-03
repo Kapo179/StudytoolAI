@@ -1,5 +1,5 @@
 export const HEADER_LINKS = [
-  { name: 'Submit', href: '/submit', icon: '✨' },
+  { name: 'Submit', href: '/submission-info', icon: '✨' },
 ];
 
 export const CATEGORIES = [
