@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import Marquee from "@/components/magicui/marquee";
+import { Link } from "react-router-dom";
 
 const reviews = [
   {
@@ -38,6 +39,24 @@ const reviews = [
     body: "Can't help but think it's incredible 😉",
     img: "https://avatar.vercel.sh/james",
   },
+  {
+    name: "Marcus",
+    username: "@marcus_tan2",
+    body: "Much underhyped tool compared to other products existing today that deal with note-taking, thinking, productivity etc.",
+    img: "/assets/images/avatars/owl.jpg",
+  },
+  {
+    name: "Steve Gitau",
+    username: "@steve_gitau",
+    body: "I like this. It comes in very handy",
+    img: "https://avatar.vercel.sh/jenny",
+  },
+  {
+    name: "Jordan Walker",
+    username: "@jwalker",
+    body: "Can't help but think it's incredible 😉",
+    img: "https://avatar.vercel.sh/james",
+  },
 ];
 
 const firstRow = reviews.slice(0, reviews.length / 2);
@@ -48,13 +67,16 @@ const ReviewCard = ({
   name,
   username,
   body,
+  link,
 }: {
   img: string;
   name: string;
   username: string;
   body: string;
+  link: string;
 }) => {
   return (
+    <Link to={link}>
     <figure
       className={cn(
         "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
@@ -75,6 +97,7 @@ const ReviewCard = ({
       </div>
       <blockquote className="mt-2 text-sm">{body}</blockquote>
     </figure>
+    </Link>
   );
 };
 
