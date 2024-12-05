@@ -8,7 +8,8 @@ import { AdminDashboard } from '@/components/admin/admin-dashboard';
 import { AdminLink } from '@/components/admin/admin-link';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { SavedProducts } from '@/pages/Savedproducts';
-import { SubmissionLandingPage } from '@/pages/SubmissionLandingPage'; 
+import { SubmissionLandingPage } from '@/pages/SubmissionLandingPage';
+import PremiumContentPage from '@/pages/PremiumContentPage'; // Correct import
 
 function HomePage() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/saved" element={<SavedProducts />} />
           <Route path="/submission-success" element={<SubmissionLandingPage />} />
+          <Route path="/premium-content" element={<PremiumContentPage />} /> {/* Correct component name */}
         </Routes>
       </div>
     </TooltipProvider>

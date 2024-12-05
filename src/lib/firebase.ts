@@ -80,5 +80,12 @@ export async function getSubmissionsByStatus(status: string) {
   }));
 }
 
-// Export Firestore functions
-export { doc, getDoc, setDoc, updateDoc, increment };
+// Function to get subscription status
+export const getSubscriptionStatus = async (uid: string): Promise<boolean> => {
+  const userDoc = await getDoc(doc(db, 'users', uid));
+  if (userDoc.exists()) {
+    const userData = userDoc.data();
+    return userData.isSubscriber || false;
+  }
+  return false;
+};

@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react';
 import { User, signInWithPopup, signOut } from 'firebase/auth';
-import { auth, googleProvider } from '@/lib/firebase';
+import { auth, googleProvider, getSubscriptionStatus } from '@/lib/firebase';
 import { useToast } from '@/hooks/use-toast';
 
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isSubscriber, setIsSubscriber] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       setUser(user);
       setLoading(false);
+      if (user) {
+        const status = await getSubscriptionStatus(user.uid);
+        setIsSubscriber(status);
+      }
     });
     return unsubscribe;
   }, []);
@@ -23,6 +28,8 @@ export function useAuth() {
         title: "Welcome!",
         description: `Signed in as ${result.user.email}`,
       });
+      const status = await getSubscriptionStatus(result.user.uid);
+      setIsSubscriber(status);
     } catch (error: any) {
       toast({
         title: "Error signing in",
@@ -35,6 +42,8 @@ export function useAuth() {
   const signOutUser = async () => {
     try {
       await signOut(auth);
+      setUser(null);
+      setIsSubscriber(false);
       toast({
         title: "Signed out",
         description: "You have been successfully signed out",
@@ -51,6 +60,7 @@ export function useAuth() {
   return {
     user,
     loading,
+    isSubscriber,
     signInWithGoogle,
     signOutUser,
   };
