@@ -9,7 +9,6 @@ import { AdminLink } from '@/components/admin/admin-link';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { SavedProducts } from '@/pages/Savedproducts';
 import { SubmissionLandingPage } from '@/pages/SubmissionLandingPage'; 
-import { SubmissionInfoPage } from './pages/SubmissionInfoPage';
 
 function HomePage() {
   return (
@@ -34,7 +33,6 @@ export default function App() {
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/saved" element={<SavedProducts />} />
           <Route path="/submission-success" element={<SubmissionLandingPage />} />
-          <Route path="/submission-info" element={<SubmissionInfoPage />} />
         </Routes>
       </div>
     </TooltipProvider>

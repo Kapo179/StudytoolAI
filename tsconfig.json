@@ -12,10 +12,15 @@
     "allowImportingTsExtensions": true,
     "baseUrl": ".",
     "paths": {
+      "next": ["./node_modules/next"],
+      "next/*": ["./node_modules/next/*"],
+      "react": ["./node_modules/react"],
+      "react/jsx-runtime": ["./node_modules/react/jsx-runtime"],
       "@/*": ["./src/*"]
     },
     "emitDeclarationOnly": true,
-    "declaration": true
+    "declaration": true,
+    "typeRoots": ["./node_modules/@types"],
   },
   "include": ["src"]
 }
