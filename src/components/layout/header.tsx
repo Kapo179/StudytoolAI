@@ -1,4 +1,3 @@
-// src/components/layout/header.tsx
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
@@ -13,9 +12,9 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center px-4 md:h-16 md:px-6">
+      <div className="container flex h-14 items-center justify-between px-4 md:h-16 md:px-6">
         {/* Logo - Always visible */}
-        <Link to="/">
+        <Link to="/" className="flex-shrink-0">
           <img src="/assets/images/logo/L0026.png" alt="AIStudytools Logo" className="h-10" />
         </Link>
 

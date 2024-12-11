@@ -9,8 +9,14 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
       global: 'global',
       buffer: 'buffer',
-      process: 'process',
+      process: 'process/browser', // Ensure process is aliased to process/browser
     },
+  },
+  optimizeDeps: {
+    exclude: [
+      'chunk-BWFG447A.js',
+      'chunk-MJNXEZOV.js',
+    ],
   },
   build: {
     rollupOptions: {

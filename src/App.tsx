@@ -10,11 +10,13 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { SavedProducts } from '@/pages/Savedproducts';
 import { SubmissionLandingPage } from '@/pages/SubmissionLandingPage';
 import PremiumContentPage from '@/pages/PremiumContentPage'; // Correct import
+import Page from '@/app/page'; // Import the new HomePage
+
 
 function HomePage() {
   return (
     <main className="container relative min-h-screen px-4 py-4 md:px-6 md:py-6">
-      <ProductList />
+      <Page />
       <div className="absolute bottom-4 right-4">
         <AdminLink />
       </div>
