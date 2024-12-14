@@ -152,3 +152,29 @@ export const SAMPLE_PRODUCTS = [
     emoji: '📚', // Add a default emoji
   },
 ];
+
+export const SAMPLE_ARTICLES = [
+  {
+    id: '1',
+    title: 'The Computer Science Job Market',
+    excerpt: 'Are Comp-sci Grads Cooked?...',
+    content: 'Full content of the article goes here...',
+    category: 'Education',
+    author: 'Abdirahman',
+    date: '2024-12-14',
+    tags: ['AI', 'Education', 'Future'],
+    notionPageId: '15b10001be6480ea8118cc32bbfb2cf1', // Add notionPageId field
+  },
+  {
+    id: '2',
+    title: 'Advancements in AI Technology',
+    excerpt: 'Discover the latest advancements in AI technology...',
+    content: 'Full content of the article goes here...',
+    category: 'technology',
+    author: 'Jane Smith',
+    date: '2023-09-15',
+    tags: ['AI', 'Technology', 'Innovation'],
+    notionPageId: '15b10001be6480ea8118cc32bbfb2cf1', // Add notionPageId field
+  },
+  // Add more articles as needed
+];
